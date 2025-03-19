@@ -105,25 +105,34 @@ Lambda functions are triggered by AWS services such as:
 ### **Prerequisites**
 
 ✅ AWS account with necessary permissions.
-✅ An **S3 bucket** for source images (`source-image-bucket123`).
-✅ An **S3 bucket** for resized images (`resized-image-bucket123`).
+
+✅ An **S3 bucket** for source images (`source-image-bucket`).
+
+✅ An **S3 bucket** for resized images (`resized-image-bucket`).
+
 ✅ AWS CLI installed (optional for testing locally).
+
 ✅ Python installed with dependencies (`boto3`, `Pillow`).
 
+
 ### **1️ Create IAM Role for Lambda**
+
 
 1. Go to **AWS IAM Console** → Roles.
 2. Click **Create Role** → Select **Lambda**.
 3. Attach **AmazonS3FullAccess** and **AWSLambdaBasicExecutionRole**.
 4. Click **Create Role** and attach it to your function.
 
+
 ### **2️ Deploy the Lambda Function**
+
 
 1. Go to **AWS Lambda Console**.
 2. Click **Create Function** → **Author from Scratch**.
 3. Name it **ImageResizeLambda** and choose **Python 3.x**.
 4. Assign the IAM Role created earlier.
 5. Copy and paste the following **Python code** into the function editor:
+   
 
 ```python
 import boto3
@@ -173,13 +182,16 @@ def lambda_handler(event, context):
 ```
 ## **3 Adding the layer**
 
+
 1. Go to **Menu** from the left top window
 2. select the **layers**
 3. create a new layer- select the Pillow zip (pillow-layer.zip)
 4. create
 5. Select the lambda function, tap on layer- Add layer - Select the pillow-layer.zip
 
+
 ### **4️⃣ Create S3 Trigger**
+
 
 1. Open **AWS Lambda Console** → Select `ImageResizeLambda`.
 2. Click **Configuration** → **Triggers** → **Add Trigger**.
@@ -188,7 +200,9 @@ def lambda_handler(event, context):
 5. Set **Event Type**: `PUT (All object create events)`.
 6. Click **Save**.
 
+
 ### **5 Test the Lambda Function**
+
 
 1. Upload an image (`test.jpg`) to `source-image`.
 2. Go to `resized-image-bucket` and check for `resized-test.jpg`.
